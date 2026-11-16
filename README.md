@@ -1,8 +1,8 @@
 # Token Radar — build the best token launch radar
 
-[![make.fun bounty](https://img.shields.io/badge/make.fun-bounty-2dd4bf)](https://make.fun/bounty/token-radar-01)
-[![competition token-radar-01](https://img.shields.io/badge/competition-token--radar--01-0a1120)](https://make.fun/bounty/token-radar-01)
-[![reward $1,325](https://img.shields.io/badge/reward-%241%2C325-gold)](https://make.fun/bounty/token-radar-01)
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/Batozar1998/token-radar-01/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/Batozar1998/token-radar-01/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
 
 Entry for [token-radar-01](https://make.fun/bounty/token-radar-01) — build the
 best token launch radar. It reads a sealed snapshot of every protocol
