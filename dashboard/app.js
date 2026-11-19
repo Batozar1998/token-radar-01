@@ -368,12 +368,28 @@
 
   function modelPanel() {
     var m = DATA.model;
+    var top = DATA.rows.filter(function (r) { return r.rank === 1; })[0] || DATA.rows[0];
+    var calFor = function (name) {
+      var list = DATA.calibration.by_category || [];
+      for (var i = 0; i < list.length; i++) if (list[i].category === name) return list[i];
+      return null;
+    };
+    var lending = calFor('Lending');
+    var basis = calFor('Basis Trading');
+    var topCal = top ? calFor(top.category || 'Other') : null;
+    var topRaw = null;
+    if (top && topCal && topCal.median !== null) {
+      topRaw = (top.category_n * topCal.median + m.shrink_prior * DATA.calibration.global_median) / (top.category_n + m.shrink_prior);
+    }
     return el('section', { class: 'panel model' },
       el('h2', { text: 'How implied value is computed' }),
       el('p', { class: 'sub', text: 'Every row is scored by one function of the snapshot figures. No protocol name is special-cased, and no row is hand-picked.' }),
       el('div', { class: 'formula' },
         'implied = round( tvl_usd x category_multiple x (1 + clamp(change_7d, ' + m.growth_floor + ', ' + m.growth_cap + ') / 100 x ' + m.growth_weight + ') x (' + m.maturity_floor + ' + min(age_days, ' + m.maturity_days + ') / ' + m.maturity_days + ' x ' + m.maturity_range + ') )'
       ),
+      el('h3', { text: 'Why a calibrated multiple beats a flat one' }),
+      el('p', { class: 'sub', text: 'A flat multiple prices every protocol the same: a lending protocol and a basis-trading protocol at the same fraction of TVL. The market does not — in this snapshot live lending tokens trade at ' + (lending ? lending.multiple : DATA.calibration.global_median) + 'x TVL while live basis-trading tokens trade at ' + (basis ? basis.multiple : DATA.calibration.global_median) + 'x, so a flat 0.25x would overprice lending by about two thirds and underprice basis trading by half. The calibration reads each category\'s own median from the snapshot\'s live protocols, so a category is priced by its own market instead of by an assumed number. That is the whole difference between this board and a TVL table with one multiplier.' }),
+      top ? el('p', { class: 'sub', text: 'Worked example, rank 1 (' + top.name + '): ' + fmtUsd(top.tvl_usd) + ' TVL x ' + top.category_multiple + ' (' + (top.category || 'Other') + ': ' + top.category_n + ' live comparable' + (top.category_n === 1 ? '' : 's') + (topCal && topCal.median !== null ? ', median mcap/TVL ' + topCal.median + (topRaw !== null ? ', shrunk toward the global median to ' + topRaw.toFixed(2) + ' and capped at ' + m.multiple_cap : '') : ', no live comparables: the global median') + ') x ' + top.growth_multiplier + ' (growth ' + fmtPct(top.change_7d) + ') x ' + top.maturity_multiplier + ' (maturity, ' + fmtAge(top.age_days) + ' with no token) = ' + fmtUsd(top.implied_value_usd) + '. The top three rows do not move when the multiple cap is set to 0.40 or 0.60 instead of ' + m.multiple_cap + ' (checked 2026-11-19): the board\'s head is set by TVL and category, not by the cap.' }) : null,
       el('p', { class: 'sub', text: 'The category multiple is the median market-cap-to-TVL of the live-token protocols in that category, shrunk toward the global median (' + DATA.calibration.global_median + ' over ' + DATA.calibration.global_n + ' live protocols) with a prior weight of ' + m.shrink_prior + ' and clamped to ' + m.multiple_floor + '–' + m.multiple_cap + '; a category with no live comparables takes the global median. TVL and seven-day growth come from the snapshot. Age is the time since the protocol was first listed, the best record of how long it has run with no token; an unlisted age uses ' + m.unknown_age_days + ' days. Wrapped, staked and bridged products are excluded, so a staked-ETH product never ranks as a launch. The watch flags — single-chain concentration, fast inflow, sharp outflow, young protocol — are observations from the snapshot, not advice. This board is not a prediction that any token launches, and not a recommendation to farm, buy or hold anything.' })
     );
   }
