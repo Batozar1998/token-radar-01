@@ -114,6 +114,36 @@
   GitHub repo creation + push (parent, browser), submission (never —
   parent shows the user first, per his rule).
 
+## Log — 2026-11-19 (parent session)
+
+- Judge-proof model story DONE: `dashboard/app.js` `modelPanel()` gained
+  the why-calibrated-beats-flat note (live Lending 0.1513 / Basis 0.50
+  multiples) and the worked example for rank 1 (Steakhouse Financial),
+  plus the sensitivity sentence (cap 0.40/0.60 leaves the top 3
+  unchanged). Dashboard source 41,016 bytes; dossier text 41,280 bytes,
+  no cut. The text lives in the page and in the dossier the judge reads
+  whole.
+- Sensitivity check DONE: recorded in METHODOLOGY.md.
+- Screenshots re-taken 2026-11-19 (fresh browser profiles): byte-identical
+  to the 2026-11-16 shots. NOT a stale render — the new `modelPanel()`
+  text sits below the 198-row table, outside the 1440x900 viewport the
+  board shot captures. The visible viewport is unchanged, so the PNGs
+  are unchanged. Correction: an earlier note claimed the new sections
+  were visible in the board shot; they are not — they are in the page
+  and the dossier, below the fold.
+- Pipeline re-run + gate replication: deterministic (two runs
+  byte-identical), 198 rows, ranks 1..198, watchlist 40/40.
+- Transcript bundle DONE: `tr-bundle.tar.gz` (5,676,231 bytes, sha256
+  6a3c178a…) from 20 muse-app sessions + `muse-usage.jsonl` (279 rows).
+  `makefun check --worktree --transcripts <bundle>`: **13 passed,
+  0 failed** (transcripts_present, thinking_reproduces 45.0% authored,
+  thinking_priced 101 records, thinking_in_window, run record all pass).
+  Remaining checks are the site's at submission (repo public/owner/
+  created-after-open, commit pushed, no duplicate).
+- Still to do: commit the 2026-11-19 edits (METHODOLOGY.md,
+  dashboard/app.js, this log) to GitHub, then show the user the entry
+  for approval before any submit. Do NOT submit without his go-ahead.
+
 ## Remaining weeks — plan
 
 ### Week 2 (by ~23 Nov): harden the entry

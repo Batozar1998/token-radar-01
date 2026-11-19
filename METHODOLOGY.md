@@ -78,6 +78,16 @@ Worked calibration in this snapshot (medians before shrinkage/clamp):
 | Onchain Capital Allocator | 2 | 0.012 | 0.15 |
 | (no live comps) | 0 | — | 0.25 (global) |
 
+### Sensitivity — the cap does not decide the board
+
+Checked 2026-11-19 by re-running the board with the multiple cap at
+0.40 and at 0.60 (baseline 0.50): ranks 1–3 (Steakhouse Financial,
+Sentora Curator, Gauntlet) do not move at either cap; at 0.40 the only
+top-10 change is #9/#10 swapping (Bittensor dTAO enters at 9, Hive
+Protocol 9→10); at 0.60 the same ten names stay in the top 10 with
+ranks 4–7 shuffled by one place. The board's head is set by TVL and
+category, not by the cap.
+
 ### growth_mult — is capital arriving or leaving
 
 ```
